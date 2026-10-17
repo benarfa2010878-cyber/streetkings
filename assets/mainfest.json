@@ -1,0 +1,15 @@
+{
+  "scale": 0.0048,
+  "yaw": 0,
+  "models": {
+    "F": "player.fbx",
+    "GK": "player.fbx"
+  },
+  "anims": {
+    "idle": "idle.fbx",
+    "walk": "walk.fbx",
+    "run": "run.fbx",
+    "kick": "kick.fbx",
+    "celebrate": "celebrate.fbx"
+  }
+}

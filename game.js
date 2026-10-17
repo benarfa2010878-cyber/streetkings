@@ -639,8 +639,8 @@ async function loadRealAssets(){
   for(const u of OPT_LIBS){ try{ await loadScript(u,9000); }catch(e){} }
   try{
     const models={},clips={},names=Object.keys(cfg.models||{});
-    for(const k of names){ const r=await loadAny('assets/'+cfg.models[k]); prepModel(r.obj,cfg); models[k]=r; }
-    for(const k of Object.keys(cfg.anims||{})){ const r=await loadAny('assets/'+cfg.anims[k]); const cl=r.clips&&r.clips[0]; if(cl){ cl.name=k; clips[k]=cl; } }
+    for(const k of names){ const u='assets/'+cfg.models[k]; try{ const r=await loadAny(u); prepModel(r.obj,cfg); models[k]=r; }catch(e){ console.warn('[model failed] '+u,e&&e.message||e); throw e; } }
+    for(const k of Object.keys(cfg.anims||{})){ const u='assets/'+cfg.anims[k]; try{ const r=await loadAny(u); const cl=r.clips&&r.clips[0]; if(cl){ cl.name=k; clips[k]=cl; } else console.warn('[anim has no clip] '+u); }catch(e){ console.warn('[anim failed] '+u,e&&e.message||e); } }
     for(const k of names) for(const cl of models[k].clips){ const n=matchClip(cl.name); if(n&&!clips[n]) clips[n]=cl; }
     if(!names.length) return;
     REAL.ok=true; REAL.models=models; REAL.clips=clips; REAL.cfg=cfg;

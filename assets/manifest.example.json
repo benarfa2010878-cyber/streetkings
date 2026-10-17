@@ -1,0 +1,19 @@
+{
+  "_help": "انسخ الملف ده باسم manifest.json وعدّل الأسماء حسب الملفات اللي نزّلتها. امسح أي سطر مش عندك.",
+  "scale": 0.01,
+  "yaw": 0,
+  "models": {
+    "A_F": "characters/blue_player.fbx",
+    "B_F": "characters/orange_player.fbx",
+    "A_GK": "characters/keeper_a.fbx",
+    "B_GK": "characters/keeper_b.fbx"
+  },
+  "anims": {
+    "idle": "characters/idle.fbx",
+    "walk": "characters/walk.fbx",
+    "run": "characters/run.fbx",
+    "kick": "characters/kick.fbx",
+    "celebrate": "characters/celebrate.fbx",
+    "dive": "characters/dive.fbx"
+  }
+}

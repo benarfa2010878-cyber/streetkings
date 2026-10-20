@@ -38,6 +38,10 @@ html,body{margin:0;height:100%;overflow:hidden;background:#120d09;font-family:va
 .panel ul{list-style:none;padding:0;margin:0 0 14px;text-align:right;line-height:1.7;font-size:15px}
 .panel li{margin:6px 0}.panel b{color:var(--y)}
 #tutorial,#pause,#results{z-index:30;background:rgba(8,5,2,.72)}
+#opts{z-index:30;background:rgba(8,5,2,.30);justify-content:flex-end;padding-bottom:calc(env(safe-area-inset-bottom) + 18px)}
+.opt{margin:10px 0}.opt>div:first-child{font-weight:800;color:var(--y);margin-bottom:6px;text-align:right}
+.opt .seg{justify-content:flex-end}
+@media (max-height:520px){#opts{justify-content:center}.panel{max-height:94vh;overflow:auto}}
 #results .big{font:900 64px/1 "Arial Black",var(--f)}
 #results .res{font:900 30px var(--f);color:var(--y)}
 #hud{position:absolute;inset:0;pointer-events:none;z-index:10}
@@ -118,6 +122,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#120d09;font-family:va
       <div class="row">
         <button id="btnHow" class="abtn alt sm" type="button">كيف تلعب؟</button>
         <button id="btnSound" class="abtn alt sm" type="button">🔊 الصوت</button>
+        <button id="btnOpts" class="abtn alt sm" type="button">⚙ خيارات</button>
       </div>
       <div class="row seg" id="durSeg"><button data-d="120">2:00</button><button data-d="60">1:00</button><button data-d="20">0:20 اختبار</button></div>
       <div class="stat" id="statLine"></div>
@@ -130,12 +135,25 @@ html,body{margin:0;height:100%;overflow:hidden;background:#120d09;font-family:va
       <ul>
         <li><b>الجويستيك (يسار):</b> حرّك اللاعب بأي اتجاه، وكل ما تبعده أكتر يجري أسرع.</li>
         <li><b>PASS · تمريرة:</b> اضغط مرة لتمرير الكورة لزميل فاضي. لو الكورة مش معاك، الزرار ده بيبدّل اللاعب.</li>
+        <li><b>TACKLE · تدخّل:</b> لما الكورة تبقى مع الخصم، زرار SHOOT بيتحول لـ TACKLE: قرّب من اللي معاه الكورة ودوس عشان تنزلق وتخطفها منه. لو غلطت هتتأخر ثانية.</li>
         <li><b>SHOOT · تسديد:</b> دوس مطوّلاً لشحن الشوط، وارفع إصبعك للتسديد. حرّك الجويستيك يمين أو شمال أثناء الشحن لتوجيه الكورة. الشحن الزيادة بيوطّي الدقة!</li>
         <li><b>SPRINT · جري:</b> دوس مطوّلاً للجري السريع.</li>
         <li>الحارس بيصدّ! ضيّع الحارس وسدّد في الزاوية. المباراة 2 دقيقة.</li>
         <li style="opacity:.75;font-size:13px">كيبورد: الأسهم/WASD حركة · Space تمريرة · X تسديد · Shift جري · P إيقاف</li>
       </ul>
       <button id="btnHowClose" class="abtn" type="button">تمام، يلا!</button>
+    </div>
+  </div>
+
+  <div id="opts" class="screen hidden">
+    <div class="panel">
+      <h2>خيارات اللعب</h2>
+      <div class="opt"><div>الوقت</div><div class="row seg"><button data-k="time" data-v="day">☀️ نهار</button><button data-k="time" data-v="dusk">🌇 غروب</button><button data-k="time" data-v="night">🌙 ليل</button></div></div>
+      <div class="opt"><div>الملعب</div><div class="row seg"><button data-k="pitch" data-v="dirt">تراب الحارة</button><button data-k="pitch" data-v="turf">عشب صناعي</button><button data-k="pitch" data-v="court">ملعب بلاستيك</button></div></div>
+      <div class="opt"><div>عدد اللاعبين</div><div class="row seg"><button data-k="size" data-v="3">3 ضد 3 (حارس + 2)</button><button data-k="size" data-v="5">5 ضد 5 (حارس + 4)</button></div></div>
+      <div class="opt"><div>الكاميرا (الجانبية بالعرض فقط)</div><div class="row seg"><button data-k="cam" data-v="top">علوية</button><button data-k="cam" data-v="side">جانبية</button></div></div>
+      <div class="opt"><div>مساعدة الحركة</div><div class="row seg"><button data-k="assist" data-v="1">شغّالة</button><button data-k="assist" data-v="0">مقفولة</button></div></div>
+      <button id="btnOptsClose" class="abtn" type="button" style="margin-top:6px">تمام</button>
     </div>
   </div>
 
@@ -146,6 +164,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#120d09;font-family:va
         <button id="btnResume" class="abtn" type="button">استمرار · Resume</button>
         <button id="btnRestart" class="abtn alt" type="button">إعادة · Restart</button>
         <button id="btnPauseSound" class="abtn alt sm" type="button">🔊 الصوت</button>
+        <button id="btnPauseCam" class="abtn alt sm" type="button">📷 الكاميرا</button>
         <button id="btnPauseMenu" class="abtn alt" type="button">القائمة · Main Menu</button>
       </div>
     </div>

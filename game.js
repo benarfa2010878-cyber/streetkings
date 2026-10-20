@@ -641,6 +641,10 @@ async function loadRealAssets(){
     const models={},clips={},names=Object.keys(cfg.models||{});
     for(const k of names){ const u='assets/'+cfg.models[k]; try{ const r=await loadAny(u); prepModel(r.obj,cfg); models[k]=r; }catch(e){ console.warn('[model failed] '+u,e&&e.message||e); throw e; } }
     for(const k of Object.keys(cfg.anims||{})){ const u='assets/'+cfg.anims[k]; try{ const r=await loadAny(u); const cl=r.clips&&r.clips[0]; if(cl){ cl.name=k; clips[k]=cl; } else console.warn('[anim has no clip] '+u); }catch(e){ console.warn('[anim failed] '+u,e&&e.message||e); } }
+    { const hips=models[names[0]]&&models[names[0]].obj.getObjectByName('mixamorigHips');
+      if(hips){ const rp=hips.position.clone();
+        const fix=cl=>cl.tracks.forEach(t=>{ if(/Hips\.position$/.test(t.name)){ const v=t.values,y0=Math.abs(v[1])>1e-3?v[1]:rp.y,r=rp.y/y0; for(let i=0;i<v.length;i+=3){ const dy=v[i+1]-y0; v[i]=rp.x; v[i+2]=rp.z; v[i+1]=rp.y+dy*r; } } });
+        Object.values(clips).forEach(fix); } }
     for(const k of names) for(const cl of models[k].clips){ const n=matchClip(cl.name); if(n&&!clips[n]) clips[n]=cl; }
     if(!names.length) return;
     REAL.ok=true; REAL.models=models; REAL.clips=clips; REAL.cfg=cfg;
